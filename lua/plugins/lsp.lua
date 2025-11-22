@@ -99,7 +99,7 @@ return {
                 "ts_ls",
                 "eslint",
                 "pyright",
---		"java_language_server",
+		"jdtls",
             },
             handlers = {
                 function(server_name)
