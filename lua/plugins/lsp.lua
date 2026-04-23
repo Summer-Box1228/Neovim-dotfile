@@ -2,8 +2,8 @@
 return {
     'neovim/nvim-lspconfig',
     dependencies = {
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason.nvim',
+        'mason-org/mason-lspconfig.nvim',
         -- Autocompletion
         'hrsh7th/nvim-cmp',
         'hrsh7th/cmp-buffer',
@@ -39,12 +39,10 @@ return {
             end
         })
         -- Add borders to floating windows
-        vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-            vim.lsp.handlers.hover,
+        vim.lsp.handlers['textDocument/hover'] = vim.lsp.buf.hover(
             { border = 'rounded' }
         )
-        vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
+        vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.buf.signature_help(
             { border = 'rounded' }
         )
 --         -- Configure error/warnings interface
@@ -94,11 +92,6 @@ return {
         require('mason').setup({})
         require('mason-lspconfig').setup({
             ensure_installed = {
---                 "lua_ls",
-                "intelephense",
-                "ts_ls",
-                "eslint",
-                "pyright",
 		"jdtls",
             },
             handlers = {
