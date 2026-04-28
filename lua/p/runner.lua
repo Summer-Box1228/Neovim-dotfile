@@ -44,10 +44,14 @@ local function picker(opts, commands)
                     local selection = action_state.get_selected_entry()
                     if not selection then return end
                     actions.close(prompt_bufnr)
-                    vim.api.nvim_cmd(
-                        vim.api.nvim_parse_cmd(":hor te " .. selection.value, {}),
-                        {}
-                    )
+                    if type(selection.value) == "function" then
+                        selection.value()
+                    else
+                        vim.api.nvim_cmd(
+                            vim.api.nvim_parse_cmd(":hor te " .. selection.value, {}),
+                            {}
+                        )
+                    end
                 end)
                 return true
             end,
