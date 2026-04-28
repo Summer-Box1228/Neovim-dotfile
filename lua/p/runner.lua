@@ -41,13 +41,13 @@ local function picker(opts, commands)
                 local action_state = require("telescope.actions.state")
 
                 actions.select_default:replace(function()
-                    actions.close(prompt_bufnr)
                     local selection = action_state.get_selected_entry()
+                    if not selection then return end
+                    actions.close(prompt_bufnr)
                     vim.api.nvim_cmd(
                         vim.api.nvim_parse_cmd(":hor te " .. selection.value, {}),
                         {}
                     )
-                    --vim.cmd.hor({ args = { "terminal", selection.value } })
                 end)
                 return true
             end,
