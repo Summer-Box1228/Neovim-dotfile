@@ -50,6 +50,16 @@ return {
                         name = "run",
                         cmd = "cargo r",
                     },
+                    {
+                        name = "echo hello",
+                        cmd = function()
+                            vim.api.nvim_cmd(
+                                vim.api.nvim_parse_cmd(":!echo hello", {}),
+                                {}
+                            )
+                        end,
+                        desc = "hello",
+                    },
                 },
             },
         },

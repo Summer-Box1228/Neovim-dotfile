@@ -76,7 +76,13 @@ local function mk_choice(tbl, prefix)
     local current = prefix ~= "" and (prefix .. " -> " .. tbl.name) or tbl.name
 
     if type(tbl.cmd) == "string" then
-        table.insert(result, { label = current .. ": " .. tbl.cmd, cmd = tbl.cmd })
+        local label = current .. ": " .. tbl.cmd
+        if tbl.desc then label = label .. " -- " .. tbl.desc end
+        table.insert(result, { label = label, cmd = tbl.cmd })
+    elseif type(tbl.cmd) == "function" then
+        local label = current .. ": lua function"
+        if tbl.desc then label = label .. " -- " .. tbl.desc end
+        table.insert(result, { label = label, cmd = tbl.cmd })
     elseif type(tbl.cmd) == "table" and #tbl.cmd > 0 then
         local sub = mk_choice(tbl.cmd, current)
         for _, s in ipairs(sub) do
