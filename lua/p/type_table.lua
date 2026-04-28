@@ -1,7 +1,6 @@
 return {
     {
         type = "c",
-        compiler = "cc",
         project = {
             marker = {
                 "Makefile",
@@ -34,7 +33,6 @@ return {
     },
     {
         type = "rust",
-        compiler = "rustc",
         project = {
             marker = {
                 "Cargo.toml",
