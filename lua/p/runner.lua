@@ -96,7 +96,7 @@ end
 function M.something()
     local cmd_list
     for _, t in ipairs(type_list) do
-        if which() == t.type or (which() == "netrw" and is_prj(t.project.marker)) then
+        if which() == t.type or is_prj(t.project.marker) then
             cmd_list = mk_choice(t.commands)
             if is_prj(t.project.marker) then
                 for _, v in ipairs(mk_choice(t.project.commands)) do
