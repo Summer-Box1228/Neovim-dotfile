@@ -1,19 +1,20 @@
 local M = {}
 
-local type_list = setmetatable(require("p.type_table"), {
-    __add = function(type_list, i)
-        if type(i) ~= "table" then return error("item in type list must be a table") end
-        return table.insert(type_list, i)
-    end
-})
+local type_list = require("p.type_table")
 
+---@return string
 local function which()
     return vim.bo.filetype
 end
+
+---@param marker string
+---@return boolean
 local function is_prj(marker)
     if vim.fs.root(0, marker) then return true else return false end
 end
 
+---@param opts table
+---@param commands table
 local function picker(opts, commands)
     if not commands or not (#commands > 0) then return print("There's nothing to do.") end
     opts = opts or {}
@@ -57,6 +58,10 @@ local function picker(opts, commands)
             end,
         }):find()
 end
+
+---@param tbl table
+---@param prefix? string
+---@return table
 local function mk_choice(tbl, prefix)
     if not tbl or type(tbl) ~= "table" then return {} end
     prefix = prefix or ""
@@ -94,6 +99,7 @@ local function mk_choice(tbl, prefix)
 end
 
 function M.something()
+    ---@type table
     local cmd_list
     for _, t in ipairs(type_list) do
         if which() == t.type or is_prj(t.project.marker) then

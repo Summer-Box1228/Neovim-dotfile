@@ -1,3 +1,4 @@
+---@return table
 return {
     {
         type = "c",
